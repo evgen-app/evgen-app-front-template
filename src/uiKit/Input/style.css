@@ -1,0 +1,37 @@
+.myInput{
+    
+    background: #FFFFFF;
+    border: 1px solid #E1E1E1;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 20px 32px;
+    font-family:  'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+.myInput::placeholder{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    /* identical to box height */
+
+
+color: #6F6F6F;
+
+    font-family:'Montserrat', sans-serif;;
+}
+.myInput:hover{
+
+
+}
+.myInput:active{
+
+}
+*{
+    outline:none
+}
