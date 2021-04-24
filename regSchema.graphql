@@ -5,7 +5,26 @@ mutation auth($username:String!, $password:String!){
 }
 
 mutation register($username:String!, $password:String!){
-    registerUser(input:{username:$username, password:$password}){
+    createUser(username:$username, password:$password){
       ok
     }
   }
+
+query getMaterials($token: String){
+  materialsByUser(token:$token){
+    content
+    id
+  }
+}
+
+mutation UpdateDoc($id:ID, $content:String){
+  updateDoc(content:$content, id:$id){
+    ok
+  }
+}
+
+query getMaterialByID($id:ID!){
+  material(id:$id){
+    content
+  }
+}

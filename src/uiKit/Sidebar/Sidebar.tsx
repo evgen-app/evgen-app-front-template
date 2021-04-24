@@ -29,19 +29,19 @@ export const ApplicationSidebar:react.FC<ISidebar> = (props) => {
     const phoneAdaptation = window.matchMedia("(min-width:880px)")
 
     const {url} = useRouteMatch();
-    const [docked, setDocked] = useState(true);
+    // const [docked, setDocked] = useState(true);
     const [closed, setClosed] = useState(props.closed);
 
-    phoneAdaptation.addListener(() => {
-        setDocked(phoneAdaptation.matches)
-    })
+    // phoneAdaptation.addListener(() => {
+    //     setDocked(phoneAdaptation.matches)
+    // })
 
     return <Sidebar
         sidebar={<ApplicationSidebarRoute content={props.content}></ApplicationSidebarRoute>}
         open={closed}
         onSetOpen={setClosed}
         sidebarClassName={"sidebar__container"}
-        docked={docked}
+        docked={true}
         shadow={false}
         >
         {props.children}
