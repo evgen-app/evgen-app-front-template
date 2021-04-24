@@ -28,7 +28,9 @@ export const Document:React.FC = () =>{
     function onChange(state:any){
         updateDoc({variables:{id:docID, content:JSON.stringify(convertToRaw(state))}})
     }
-    
+    // let a = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
+    // updateDoc({variables:{id:docID, content:JSON.stringify(a)}})
+
 
     let state = convertFromRaw(JSON.parse(data.material.content))
     

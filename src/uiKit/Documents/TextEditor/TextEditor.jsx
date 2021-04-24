@@ -40,6 +40,7 @@ export class MyUserComponentEditor extends React.Component {
 
 
   test = (e) =>{
+    console.log(e)
     this.Type_task = e.target.innerText
     this.confirmMedia()
   };
@@ -50,10 +51,10 @@ export class MyUserComponentEditor extends React.Component {
     return (
       <div onClick={this.stopPropagation}>
         <div className="wrapper">
-          <DefaultButton handleClick={(e)=>this.test(e)} id={1} class="taskButton">Прочитать текст</DefaultButton>
-          <DefaultButton handleClick={(e)=>this.test(e)} id={2} class="taskButton">выбрать правильный вариант ответа</DefaultButton>
-          <DefaultButton handleClick={(e)=>this.test(e)} id={3} class="taskButton">правда/ложь</DefaultButton>
-          <DefaultButton handleClick={(e)=>this.test(e)} id={4} class="taskButton">расставить заголвки</DefaultButton>
+          <button onClick={(e)=>this.test(e)} id={1} class="taskButton">Прочитать текст</button>
+          <button handleClick={(e)=>this.test(e)} id={2} class="taskButton">выбрать правильный вариант ответа</button>
+          <button handleClick={(e)=>this.test(e)} id={3} class="taskButton">правда/ложь</button>
+          <button handleClick={(e)=>this.test(e)} id={4} class="taskButton">расставить заголвки</button>
         </div>
        </div>
     );
@@ -155,6 +156,8 @@ const Media = (props) => {
   const type = entity.getType();
 
   let media;
+  media = <div>audio</div>;
+
   if (type === 'audio') {
     media = <div>audio</div>;
   } else if (type === "Прочитать текст") {
