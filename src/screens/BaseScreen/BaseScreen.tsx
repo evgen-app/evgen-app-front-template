@@ -7,7 +7,7 @@ import {useUpdateDocMutation} from "../../generated/graphql"
 import {Document} from "../../uiKit/Documents/Document/Document"
 
 function createDoc(){
-    
+
 }
 
 export const BaseScreen:react.FC = () => {
@@ -39,7 +39,7 @@ export const BaseScreen:react.FC = () => {
                     <Document></Document>
             </Route>
             <Route path={url}>
-            <button onClick={}></button>
+            <button >создать</button>
             <div>
                 {data && data?.materialsByUser?.map( materials => 
                     <DocumentCard 
