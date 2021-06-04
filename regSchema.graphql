@@ -12,19 +12,34 @@ mutation register($username:String!, $password:String!){
 
 query getMaterials($token: String){
   materialsByUser(token:$token){
+    name
+    state
     content
     id
   }
 }
-
-mutation UpdateDoc($id:ID, $content:String){
-  updateDoc(content:$content, id:$id){
+mutation UpdateDoc($id:ID, $content:String, $name:String, $state:String){
+  updateDoc(content:$content, id:$id, name:$name, state:$state){
+    ok
+  }
+}
+mutation DeleteDoc($id:ID){
+  deleteDoc(id:$id){
     ok
   }
 }
 
 query getMaterialByID($id:ID!){
   material(id:$id){
-    content
+    name
+    state
+  }
+}
+
+mutation CreateDoc($token: String, $name:String){
+	createDoc(token:$token, content:"Это новый документ!",name:$name, state:"{\"blocks\":[{\"key\":\"637gr\",\"text\":\"Это новый документ!\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}}"){
+  	document{
+      id
+    }
   }
 }

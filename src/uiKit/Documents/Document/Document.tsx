@@ -4,9 +4,10 @@ import {
 } from "react-router-dom"
 import "./style.css";
 import {MyUserComponentEditor} from "../TextEditor/TextEditor"
-import {useUpdateDocMutation, useGetMaterialByIdQuery} from "../../../generated/graphql"
+import {useUpdateDocMutation, useGetMaterialByIdQuery, useGetMaterialByIdLazyQuery} from "../../../generated/graphql"
 import {EditorState} from "draft-js"
 import { convertFromRaw, convertToRaw } from 'draft-js';
+import { get } from "node:https";
 
 
 export const Document:React.FC = () =>{
@@ -19,25 +20,35 @@ export const Document:React.FC = () =>{
     if (loading){
         return <h1>loading...</h1>
     }
-    if (data?.material == null){
-        console.log("нет данных")
-        return <Redirect to="/index"></Redirect>
+    if (!data){
+        // console.log("нет данных")
+        // return <Redirect to="/index"></Redirect>
+        return <div>Loading.....</div>
     }
 
 
     function onChange(state:any){
-        updateDoc({variables:{id:docID, content:JSON.stringify(convertToRaw(state))}})
+        updateDoc(
+                {
+                variables:{
+                    id:docID, state:JSON.stringify(convertToRaw(state)).toString(), 
+                    name: data?.material?.name.toString() , 
+                    content:"пп"
+                },
+            }
+        )
+        console.log(state)
+        
     }
     // let a = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
     // updateDoc({variables:{id:docID, content:JSON.stringify(a)}})
 
-
-    let state = convertFromRaw(JSON.parse(data.material.content))
+    let State = convertFromRaw(JSON.parse(data?.material?.state!))
     
     
     return (
         <div id="doc">
-        <MyUserComponentEditor addComponents={true} state={state}  onChange={(e:any)=>onChange(e)}></MyUserComponentEditor>
+        <MyUserComponentEditor addComponents={true} state={State}  onChange={(e:any)=>onChange(e)}></MyUserComponentEditor>
         </div>     
 
 

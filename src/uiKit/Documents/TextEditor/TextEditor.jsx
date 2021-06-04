@@ -52,9 +52,9 @@ export class MyUserComponentEditor extends React.Component {
       <div onClick={this.stopPropagation}>
         <div className="wrapper">
           <button onClick={(e)=>this.test(e)} id={1} class="taskButton">Прочитать текст</button>
-          <button handleClick={(e)=>this.test(e)} id={2} class="taskButton">выбрать правильный вариант ответа</button>
-          <button handleClick={(e)=>this.test(e)} id={3} class="taskButton">правда/ложь</button>
-          <button handleClick={(e)=>this.test(e)} id={4} class="taskButton">расставить заголвки</button>
+          <button onClick={(e)=>this.test(e)} id={2} class="taskButton">выбрать правильный вариант ответа</button>
+          <button onClick={(e)=>this.test(e)} id={3} class="taskButton">правда/ложь</button>
+          <button onClick={(e)=>this.test(e)} id={4} class="taskButton">расставить заголвки</button>
         </div>
        </div>
     );

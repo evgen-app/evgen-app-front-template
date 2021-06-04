@@ -28,7 +28,7 @@ export type Scalars = {
 
 export type CreateDoc = {
   __typename?: 'CreateDoc';
-  ok?: Maybe<Scalars['Boolean']>;
+  document?: Maybe<MaterialType>;
 };
 
 export type CreateUser = {
@@ -49,6 +49,8 @@ export type MaterialType = Node & {
   id: Scalars['ID'];
   user: UserType;
   content: Scalars['String'];
+  name: Scalars['String'];
+  state: Scalars['String'];
 };
 
 export type MaterialTypeConnection = {
@@ -105,6 +107,8 @@ export type MutationCreateUserArgs = {
 
 export type MutationCreateDocArgs = {
   content?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
   token?: Maybe<Scalars['String']>;
 };
 
@@ -112,6 +116,8 @@ export type MutationCreateDocArgs = {
 export type MutationUpdateDocArgs = {
   content?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['ID']>;
+  name?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
 };
 
 
@@ -282,6 +288,8 @@ export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutatio
 export const GetMaterialsDocument = gql`
     query getMaterials($token: String) {
   materialsByUser(token: $token) {
+    name
+    state
     content
     id
   }
@@ -316,8 +324,8 @@ export type GetMaterialsQueryHookResult = ReturnType<typeof useGetMaterialsQuery
 export type GetMaterialsLazyQueryHookResult = ReturnType<typeof useGetMaterialsLazyQuery>;
 export type GetMaterialsQueryResult = Apollo.QueryResult<GetMaterialsQuery, GetMaterialsQueryVariables>;
 export const UpdateDocDocument = gql`
-    mutation UpdateDoc($id: ID, $content: String) {
-  updateDoc(content: $content, id: $id) {
+    mutation UpdateDoc($id: ID, $content: String, $name: String, $state: String) {
+  updateDoc(content: $content, id: $id, name: $name, state: $state) {
     ok
   }
 }
@@ -339,6 +347,8 @@ export type UpdateDocMutationFn = Apollo.MutationFunction<UpdateDocMutation, Upd
  *   variables: {
  *      id: // value for 'id'
  *      content: // value for 'content'
+ *      name: // value for 'name'
+ *      state: // value for 'state'
  *   },
  * });
  */
@@ -349,10 +359,44 @@ export function useUpdateDocMutation(baseOptions?: Apollo.MutationHookOptions<Up
 export type UpdateDocMutationHookResult = ReturnType<typeof useUpdateDocMutation>;
 export type UpdateDocMutationResult = Apollo.MutationResult<UpdateDocMutation>;
 export type UpdateDocMutationOptions = Apollo.BaseMutationOptions<UpdateDocMutation, UpdateDocMutationVariables>;
+export const DeleteDocDocument = gql`
+    mutation DeleteDoc($id: ID) {
+  deleteDoc(id: $id) {
+    ok
+  }
+}
+    `;
+export type DeleteDocMutationFn = Apollo.MutationFunction<DeleteDocMutation, DeleteDocMutationVariables>;
+
+/**
+ * __useDeleteDocMutation__
+ *
+ * To run a mutation, you first call `useDeleteDocMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteDocMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteDocMutation, { data, loading, error }] = useDeleteDocMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteDocMutation(baseOptions?: Apollo.MutationHookOptions<DeleteDocMutation, DeleteDocMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteDocMutation, DeleteDocMutationVariables>(DeleteDocDocument, options);
+      }
+export type DeleteDocMutationHookResult = ReturnType<typeof useDeleteDocMutation>;
+export type DeleteDocMutationResult = Apollo.MutationResult<DeleteDocMutation>;
+export type DeleteDocMutationOptions = Apollo.BaseMutationOptions<DeleteDocMutation, DeleteDocMutationVariables>;
 export const GetMaterialByIdDocument = gql`
     query getMaterialByID($id: ID!) {
   material(id: $id) {
-    content
+    name
+    state
   }
 }
     `;
@@ -384,6 +428,47 @@ export function useGetMaterialByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type GetMaterialByIdQueryHookResult = ReturnType<typeof useGetMaterialByIdQuery>;
 export type GetMaterialByIdLazyQueryHookResult = ReturnType<typeof useGetMaterialByIdLazyQuery>;
 export type GetMaterialByIdQueryResult = Apollo.QueryResult<GetMaterialByIdQuery, GetMaterialByIdQueryVariables>;
+export const CreateDocDocument = gql`
+    mutation CreateDoc($token: String, $name: String) {
+  createDoc(
+    token: $token
+    content: "Это новый документ!"
+    name: $name
+    state: "{\\"blocks\\":[{\\"key\\":\\"637gr\\",\\"text\\":\\"Это новый документ!\\",\\"type\\":\\"unstyled\\",\\"depth\\":0,\\"inlineStyleRanges\\":[],\\"entityRanges\\":[],\\"data\\":{}}],\\"entityMap\\":{}}"
+  ) {
+    document {
+      id
+    }
+  }
+}
+    `;
+export type CreateDocMutationFn = Apollo.MutationFunction<CreateDocMutation, CreateDocMutationVariables>;
+
+/**
+ * __useCreateDocMutation__
+ *
+ * To run a mutation, you first call `useCreateDocMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDocMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDocMutation, { data, loading, error }] = useCreateDocMutation({
+ *   variables: {
+ *      token: // value for 'token'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useCreateDocMutation(baseOptions?: Apollo.MutationHookOptions<CreateDocMutation, CreateDocMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateDocMutation, CreateDocMutationVariables>(CreateDocDocument, options);
+      }
+export type CreateDocMutationHookResult = ReturnType<typeof useCreateDocMutation>;
+export type CreateDocMutationResult = Apollo.MutationResult<CreateDocMutation>;
+export type CreateDocMutationOptions = Apollo.BaseMutationOptions<CreateDocMutation, CreateDocMutationVariables>;
 export type AuthMutationVariables = Exact<{
   username: Scalars['String'];
   password: Scalars['String'];
@@ -405,19 +490,36 @@ export type GetMaterialsQueryVariables = Exact<{
 }>;
 
 
-export type GetMaterialsQuery = { __typename?: 'Query', materialsByUser?: Maybe<Array<Maybe<{ __typename?: 'MaterialType', content: string, id: string }>>> };
+export type GetMaterialsQuery = { __typename?: 'Query', materialsByUser?: Maybe<Array<Maybe<{ __typename?: 'MaterialType', name: string, state: string, content: string, id: string }>>> };
 
 export type UpdateDocMutationVariables = Exact<{
   id?: Maybe<Scalars['ID']>;
   content?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
 }>;
 
 
 export type UpdateDocMutation = { __typename?: 'Mutation', updateDoc?: Maybe<{ __typename?: 'UpdateDoc', ok?: Maybe<boolean> }> };
+
+export type DeleteDocMutationVariables = Exact<{
+  id?: Maybe<Scalars['ID']>;
+}>;
+
+
+export type DeleteDocMutation = { __typename?: 'Mutation', deleteDoc?: Maybe<{ __typename?: 'DeleteDoc', ok?: Maybe<boolean> }> };
 
 export type GetMaterialByIdQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type GetMaterialByIdQuery = { __typename?: 'Query', material?: Maybe<{ __typename?: 'MaterialType', content: string }> };
+export type GetMaterialByIdQuery = { __typename?: 'Query', material?: Maybe<{ __typename?: 'MaterialType', name: string, state: string }> };
+
+export type CreateDocMutationVariables = Exact<{
+  token?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+}>;
+
+
+export type CreateDocMutation = { __typename?: 'Mutation', createDoc?: Maybe<{ __typename?: 'CreateDoc', document?: Maybe<{ __typename?: 'MaterialType', id: string }> }> };
