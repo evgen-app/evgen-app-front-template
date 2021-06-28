@@ -15,7 +15,7 @@ export const RegScreen:react.FC = () => {
     const location = useLocation();
     console.log(location);
     const isSign = location.pathname.split("/").pop() == "Login";
-    if (CheckUser()) return <Redirect to=""></Redirect>
+    if (CheckUser()) return <Redirect to="/index"></Redirect>
     return (
     <div className="centered">
         <div className="registration__container">

@@ -16,7 +16,7 @@ export const App:react.FC = () => {
             <Route path="/enter-user">
                 <RegScreen></RegScreen>
             </Route>
-            <Route path="">
+            <Route path="/index">
                 <BaseScreen></BaseScreen>
             </Route>
         </Switch>
